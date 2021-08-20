@@ -20,6 +20,7 @@ async function getRegister (req,res) {
     }
 }
 
+
 async function favorite (req,res) {
     const client =  await connectDB()
     const clientConnected = await client.db('DB_TESTE_APP_MASTER')
