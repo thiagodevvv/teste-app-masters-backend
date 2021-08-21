@@ -4,12 +4,13 @@ const {
     getRegister,
     AddFavorite,
     removeFavorite,
-    getFavorites
+    getFavorites,
+    verifyCache
 } = require('../services/index')
 
 
-router.get('/', getAllRegister)
-router.get('/search/:id', getRegister)
+router.get('/', verifyCache, getAllRegister)
+router.get('/search/:id', verifyCache, getRegister)
 router.post('/favorite', AddFavorite)
 router.delete('/favorite/:appid', removeFavorite)
 router.get('/favorite', getFavorites)

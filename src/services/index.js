@@ -1,12 +1,29 @@
 const axios = require('axios').default
-const jwt = require('jwt-simple')
+const NodeCache = require("node-cache")
 const {connectDB} = require('../database')
+
+const cache = new NodeCache({ stdTTL: 15 })
+
+
+function verifyCache (req,res,next) {
+    try {
+        const { iduser } = req.headers
+        if (cache.has(iduser)) {
+            return res.status(200).json(cache.get(iduser))
+        }
+        return next()
+    }catch (err) {
+        if(err) console.log(`Erro ao fazer cache dos dados ${err}`)
+    }
+}
 
 async function getAllRegister (req,res) {
     try {
         const {data} = await axios.get('https://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json')
         const {applist} = data
         const {apps} = applist
+        const {iduser} = req.headers
+        cache.set(iduser, apps)
         return res.status(200).send(apps)
     }catch(err) {
         if(err) console.log(`Erro na obtenção de dados ${err}`)
@@ -70,4 +87,5 @@ module.exports = {
     AddFavorite,
     removeFavorite,
     getFavorites,
+    verifyCache
 }
