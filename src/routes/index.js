@@ -3,13 +3,16 @@ const {
     getAllRegister,
     getRegister,
     AddFavorite,
-    removeFavorite
+    removeFavorite,
+    getFavorites
 } = require('../services/index')
 
+
 router.get('/', getAllRegister)
-router.get('/:id', getRegister)
+router.get('/search/:id', getRegister)
 router.post('/favorite', AddFavorite)
 router.delete('/favorite/:appid', removeFavorite)
+router.get('/favorite', getFavorites)
 
 module.exports = router
 
