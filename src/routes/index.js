@@ -2,12 +2,14 @@ const router = require('express').Router()
 const {
     getAllRegister,
     getRegister,
-    favorite
+    AddFavorite,
+    removeFavorite
 } = require('../services/index')
 
 router.get('/', getAllRegister)
 router.get('/:id', getRegister)
-router.post('/favorite', favorite)
+router.post('/favorite', AddFavorite)
+router.delete('/favorite/:appid', removeFavorite)
 
 module.exports = router
 

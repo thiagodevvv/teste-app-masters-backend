@@ -3,7 +3,7 @@ const {MongoClient} = require('mongodb')
 
 // - Nunca usar isso em produção, dados ULTRA sensíveis.
 // - Esconderiamos em um arquivo .env
-const URL = 'mongodb+srv://lemao:testeappmasters@cluster0.5yxjf.mongodb.net/DB_TESTE_APP_MASTER?retryWrites=true&w=majority'
+const URL = 'mongodb+srv://app-master:mecontrata@cluster0.7gdhq.mongodb.net/DB_FAVORITOS?retryWrites=true&w=majority'
 
 
 

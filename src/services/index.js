@@ -11,7 +11,7 @@ async function getAllRegister (req,res) {
 
 
 async function getRegister (req,res) {
-    const {id} = req.params
+    const {id} = req    
     try {
         const response = await axios.get(`https://store.steampowered.com/api/appdetails?appids=${id}`)
         if(response.data) return res.status(200).send(response.data)
@@ -21,15 +21,34 @@ async function getRegister (req,res) {
 }
 
 
-async function favorite (req,res) {
-    const client =  await connectDB()
-    const clientConnected = await client.db('DB_TESTE_APP_MASTER')
-    const response = await clientConnected.collection('favorites').insertOne({"favorite": "teste"})
-    if(clientConnected) return res.status(200).send(response.data)
+async function AddFavorite (req,res) {
+    const {id_game, nota} = req.body
+    try {
+        const client =  await connectDB()
+        const clientConnected = await client.db('DB_FAVORITOS')
+        await clientConnected.collection('favorites').insertOne({id_game: id_game, nota: nota })
+        return res.status(200).send({ok: "ok"})
+    }catch(err) {
+        if(err) console.log(`Erro ao favoritar: ${err}`)
+    }
+}
+
+async function removeFavorite (req,res) {
+    const {id_game} = req.params
+    try {
+        const client =  await connectDB()
+        const clientConnected = await client.db('DB_FAVORITOS')
+        await clientConnected.collection('favorites').findOneAndDelete({id_game: id_game})
+        return res.status(200).send({ok: "ok"})
+    }catch(err) {
+        if(err) console.log(`Erro ao deletar favorito: ${err}`)
+    }
 }
 
 module.exports = {
     getAllRegister,
     getRegister,
-    favorite
+    AddFavorite,
+    removeFavorite,
+    
 }
