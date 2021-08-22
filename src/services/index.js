@@ -32,7 +32,6 @@ async function getAllRegister (req,res) {
 
 
 async function getRegister (req,res) {
-    console.log('///////////////////')
     const {id} = req.params
     try {
         const response = await axios.get(`https://store.steampowered.com/api/appdetails?appids=${id}`)
@@ -57,11 +56,11 @@ async function AddFavorite (req,res) {
 }
 
 async function removeFavorite (req,res) {
-    const {id_game} = req.params
+    const {appid} = req.params
     try {
         const client =  await connectDB()
         const clientConnected = await client.db('DB_FAVORITOS')
-        await clientConnected.collection('favorites').findOneAndDelete({id_game: id_game})
+        await clientConnected.collection('favorites').findOneAndDelete({id_game: appid})
         return res.status(200).send({ok: "ok"})
     }catch(err) {
         if(err) console.log(`Erro ao deletar favorito: ${err}`)
