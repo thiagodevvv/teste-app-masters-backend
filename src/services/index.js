@@ -2,7 +2,7 @@ const axios = require('axios').default
 const NodeCache = require("node-cache")
 const {connectDB} = require('../database')
 
-const cache = new NodeCache({ stdTTL: 15 })
+const cache = new NodeCache({ stdTTL: 3600 })
 
 
 function verifyCache (req,res,next) {
