@@ -1,8 +1,12 @@
 const axios = require('axios').default
 const NodeCache = require("node-cache")
 const {connectDB} = require('../database')
+const  path = require('path')
+const {spawn} = require('child_process')
 
 const cache = new NodeCache({ stdTTL: 15 })
+let runningProcs = []
+const maxParallelProcs = 2
 
 
 function verifyCache (req,res,next) {

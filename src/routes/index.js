@@ -5,7 +5,7 @@ const {
     AddFavorite,
     removeFavorite,
     getFavorites,
-    verifyCache
+    verifyCache,
 } = require('../services/index')
 
 
