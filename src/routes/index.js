@@ -10,7 +10,7 @@ const {
 
 
 router.get('/', verifyCache, getAllRegister)
-router.get('/search/:id', verifyCache, getRegister)
+router.get('/search/:id', getRegister)
 router.post('/favorite', AddFavorite)
 router.delete('/favorite/:appid', removeFavorite)
 router.get('/favorite', verifyCache, getFavorites)
