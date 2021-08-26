@@ -22,6 +22,9 @@ async function getAllRegister (req,res) {
         const {data} = await axios.get('https://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json')
         const {applist} = data
         const {apps} = applist
+        if(!req.headers.iduser) {
+            return res.send([])
+        }
         const {iduser} = req.headers
         cache.set(iduser, apps)
         return res.status(200).send(apps)
@@ -44,6 +47,9 @@ async function getRegister (req,res) {
 
 async function AddFavorite (req,res) {
     const {id_game, rating, type, name, header_image, detailed_description , is_free } = req.body
+    if(!req.headers.iduser) {
+        return res.send([])
+    }
     const {iduser} = req.headers
     try {
         const client =  await connectDB()
@@ -68,6 +74,9 @@ async function removeFavorite (req,res) {
 }
 
 async function getFavorites (req,res) {
+    if(!req.headers.iduser) {
+        return res.send([])
+    }
     const {iduser} = req.headers
     try {
         const client =  await connectDB()
